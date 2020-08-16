@@ -1,7 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function useOnScreen(options) {
-  const ref = useRef();
+  const [ref, setRef] = useState(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -9,23 +9,23 @@ function useOnScreen(options) {
       setVisible(entry.isIntersecting);
     }, options);
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    if (ref) {
+      observer.observe(ref);
     }
 
     //cleanup
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (ref) {
+        observer.unobserve(ref);
       }
     };
   }, [ref, options]);
 
-  return [ref, visible];
+  return [setRef, visible];
 }
 
 function App() {
-  const [ref, visible] = useOnScreen({ threshold: 0.25 });
+  const [setRef, visible] = useOnScreen({ threshold: 0.25 });
 
   return (
     <div>
@@ -38,7 +38,7 @@ function App() {
         </h1>
       </div>
       <div
-        ref={ref}
+        ref={setRef}
         style={{
           height: '100vh',
           backgroundColor: visible ? '#23cebd' : '#efefef'
