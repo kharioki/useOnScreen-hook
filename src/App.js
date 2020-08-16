@@ -1,14 +1,31 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 function useOnScreen(options) {
   const ref = useRef();
+  const [visible, setVisible] = useState(false);
 
-  useEffect(() => {}, [ref, options]);
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      setVisible(entry.isIntersecting);
+    }, options);
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    //cleanup
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [ref, options]);
+
+  return [ref, visible];
 }
 
 function App() {
-  const ref = { current: null };
-  const visible = false;
+  const [ref, visible] = useOnScreen({ rootMargin: '-300px' });
 
   return (
     <div>
