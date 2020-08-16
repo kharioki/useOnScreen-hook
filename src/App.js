@@ -25,7 +25,7 @@ function useOnScreen(options) {
 }
 
 function App() {
-  const [ref, visible] = useOnScreen({ rootMargin: '-300px' });
+  const [ref, visible] = useOnScreen({ threshold: 0.25 });
 
   return (
     <div>
