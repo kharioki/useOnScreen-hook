@@ -1,4 +1,10 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
+
+function useOnScreen(options) {
+  const ref = useRef();
+
+  useEffect(() => {}, [ref, options]);
+}
 
 function App() {
   const ref = { current: null };
