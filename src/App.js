@@ -1,24 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
 function App() {
+  const ref = { current: null };
+  const visible = false;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div style={{ height: '100vh' }}>
+        <h1>
+          Scroll down to next section{' '}
+          <span role="img" aria-label="pointing down">
+            👇🏼
+          </span>
+        </h1>
+      </div>
+      <div
+        ref={ref}
+        style={{
+          height: '100vh',
+          backgroundColor: visible ? '#23cebd' : '#efefef'
+        }}
+      >
+        {visible ? (
+          <div>
+            <h1>Hey' wassup</h1>
+            <img
+              src="https://media.giphy.com/media/STTGE1qwt0utrNazUQ/giphy.gif"
+              alt="wassup"
+            />
+          </div>
+        ) : (
+          <h1>
+            Scroll down 300px from the top of this section{' '}
+            <span role="img" aria-label="pointing down">
+              👇🏼
+            </span>
+          </h1>
+        )}
+      </div>
     </div>
   );
 }
